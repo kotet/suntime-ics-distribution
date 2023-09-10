@@ -1,0 +1,3 @@
+[submodule "suntime-ics-generator"]
+	path = suntime-ics-generator
+	url = https://github.com/kotet/suntime-ics-generator

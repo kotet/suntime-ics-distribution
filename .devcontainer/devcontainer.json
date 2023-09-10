@@ -1,0 +1,36 @@
+{
+    "name": "suntime-ics-distribution",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "context": ".",
+    },
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "terminal.integrated.profiles.linux": {
+                    "bash": {
+                        "path": "/bin/bash"
+                    },
+                },
+                "[typescript]": {
+                    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+                },
+                "[javascript]": {
+                    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+                },
+                "terminal.integrated.defaultProfile.linux": "bash",
+                "editor.tabSize": 2,
+                "eslint.format.enable": true,
+                "eslint.lintTask.enable": true,
+                "typescript.tsdk": "/workspaces/suntime-ics-distribution/website/node_modules/typescript/lib",
+            },
+            "extensions": [
+                "visualstudioexptteam.vscodeintellicode",
+                "ms-python.python",
+                "dbaeumer.vscode-eslint"
+            ],
+        }
+    },
+    "updateRemoteUserUID": true,
+    "remoteUser": "vscode",
+}
