@@ -1,4 +1,8 @@
-export type WorldPageProps = WorldJSONEntry;
+import { PageProps } from "../../renderer/types";
+
+export type WorldPageProps = {
+  entry: WorldJSONEntry,
+} & PageProps;
 
 export type WorldJSONEntry = {
   country_code: string;
@@ -6,6 +10,6 @@ export type WorldJSONEntry = {
   capital_jp: string;
   name_en: string;
   capital_en: string;
-  latitude: number;
-  longitude: number;
+  lat: number;
+  lon: number;
 };

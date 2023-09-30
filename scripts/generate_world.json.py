@@ -44,8 +44,8 @@ with open(args.input, "r") as f:
         entry += "\"name_en\": \"{}\", ".format(name_en)
         # entry += "\"name_ens\": \"{}\", ".format(name_ens)
         entry += "\"capital_en\": \"{}\", ".format(capital_en)
-        entry += "\"lat\": \"{}\", ".format(lat)
-        entry += "\"lon\": \"{}\"".format(lon)
+        entry += "\"lat\": {}, ".format(lat)
+        entry += "\"lon\": {}".format(lon)
         entry += "}"
         entries.append(entry)
     print(",\n".join(entries))

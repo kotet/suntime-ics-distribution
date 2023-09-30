@@ -1,20 +1,32 @@
 import fs from "fs";
 import { JapanJSONPath } from "../constants.server";
-import { JapanPageProps } from "./types";
+import { JapanJSONEntry, JapanPageProps } from "./types";
 import { PageContextServer } from "../../renderer/types";
+import { SiteTitle, getBaseURL } from "../constants";
 
 export async function prerender(): Promise<string[]> {
   const japanJson = fs.readFileSync(JapanJSONPath, "utf-8");
-  const entries = JSON.parse(japanJson) as JapanPageProps[];
+  const entries = JSON.parse(japanJson) as JapanJSONEntry[];
 
   return entries.map((entry) => `/japan/${entry.prefcode.toLowerCase()}/`);
 }
 
 export async function onBeforeRender(pageContext: PageContextServer) {
   const japanJson = fs.readFileSync(JapanJSONPath, "utf-8");
-  const entries = JSON.parse(japanJson) as JapanPageProps[];
+  const entries = JSON.parse(japanJson) as JapanJSONEntry[];
   const code = pageContext.routeParams.pref_code.toLowerCase();
-  const props = entries.find(prop => prop.prefcode.toLowerCase() === code);
+  const entry = entries.find(entry => entry.prefcode.toLowerCase() === code);
+  if (!entry) {
+    throw new Error(`not found: ${code}`);
+  }
+  const props: JapanPageProps = {
+    entry,
+    breadcrumbs: [
+      {href: getBaseURL().href, name: SiteTitle},
+      {name: "日本"},
+      {name: entry.name_jp},
+    ]
+  }
   if (!props) {
     throw new Error(`not found: ${code}`);
   }
@@ -27,7 +39,7 @@ export async function onBeforeRender(pageContext: PageContextServer) {
 
 export function getDocumentProps(pageProps: JapanPageProps) {
   return {
-    title: `${pageProps.prefname_jp}、${pageProps.capital_jp}の日の出と日の入り`,
-    description: `${pageProps.prefname_jp}、${pageProps.capital_jp}の日の出と日の入りカレンダー`,
+    title: `${pageProps.entry.name_jp}庁の日の出と日の入り`,
+    description: `${pageProps.entry.name_jp}の日の出と日の入りカレンダー`,
   }
 }

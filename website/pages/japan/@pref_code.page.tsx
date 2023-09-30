@@ -1,32 +1,43 @@
+import { Group, Table } from "@mantine/core";
 import { JapanPageProps } from "./types";
+import { CopyableLink } from "../../components/copyable_link";
+import { getBaseURL } from "../constants";
+import { GoogleMap } from "../../components/google_map";
+import { CalendarViewer } from "../../components/calendar";
+import { weekAfter } from "../../utils/date";
+import { Disclaimer } from "../../components/disclaimer";
 
-export function Page(props: JapanPageProps) {
-  const urlSunriseSunset = `/data/ics/japan/sunrise-sunset/${props.prefcode.toLowerCase()}-sunrise-sunset.ics`;
-  const urlSunrise = `/data/ics/japan/sunrise/${props.prefcode.toLowerCase()}-sunrise.ics`;
-  const urlSunset = `/data/ics/japan/sunset/${props.prefcode.toLowerCase()}-sunset.ics`;
+export function Page({ entry }: JapanPageProps) {
+  const urlSunriseSunset = new URL(`/data/ics/japan/sunrise-sunset/${entry.prefcode.toLowerCase()}-sunrise-sunset.ics`, getBaseURL());
+  const urlSunrise = new URL(`/data/ics/japan/sunrise/${entry.prefcode.toLowerCase()}-sunrise.ics`, getBaseURL());
+  const urlSunset = new URL(`/data/ics/japan/sunset/${entry.prefcode.toLowerCase()}-sunset.ics`, getBaseURL());
   return (
     <>
-      <h1>[{props.prefcode}]: {props.prefname_jp}</h1>
-      <p>{props.prefname_en}, Japan</p>
-      <p>{props.capital_jp}: {props.capital_address}</p>
-      <table>
-        <tr>
-          <td>日の出</td>
-          <td><Link href={urlSunrise}></Link></td>
-        </tr>
-        <tr>
-          <td>日の入り</td>
-          <td><Link href={urlSunset}></Link></td>
-        </tr>
-        <tr>
-          <td>日の出と日の入り</td>
-          <td><Link href={urlSunriseSunset}></Link></td>
-        </tr>
-      </table>
+      <h1>[{entry.prefcode}]: {entry.name_jp}</h1>
+      <p>{entry.name_en}, Japan</p>
+      <Table style={{
+        maxWidth: 800,
+      }}>
+        <tbody>
+          <tr>
+            <td>日の出</td>
+            <td><CopyableLink href={urlSunrise}></CopyableLink></td>
+          </tr>
+          <tr>
+            <td>日の入り</td>
+            <td><CopyableLink href={urlSunset}></CopyableLink></td>
+          </tr>
+          <tr>
+            <td>日の出と日の入り</td>
+            <td><CopyableLink href={urlSunriseSunset}></CopyableLink></td>
+          </tr>
+        </tbody>
+      </Table>
+      <Group py={20}>
+        <GoogleMap lat={entry.capital_lat} lng={entry.capital_lon} q={`${entry.name_jp}庁`} zoom={10} />
+        <CalendarViewer sunriseURL={urlSunrise} sunsetURL={urlSunset} initialStart={new Date()} initialEnd={weekAfter(new Date(), 3)} />
+      </Group>
+      <Disclaimer />
     </>
   );
-}
-
-function Link(props: { href: string }) {
-  return <a href={props.href}>{props.href}</a>
 }

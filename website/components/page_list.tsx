@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IsSSG } from '../pages/constants';
+import { Autocomplete, Group, Skeleton } from '@mantine/core';
 
 export type PageListEntry = {
   short_name: string;
@@ -13,8 +14,14 @@ enum Mode {
   List,
   Grid,
 }
+type AutocompleteData = {
+  value: string;
+  label: string;
+  href: string;
+};
 export const PageList: React.FC<PageListProps> = (props: PageListProps) => {
   const [mode, setMode] = React.useState<Mode>(Mode.List);
+  const [value, setValue] = React.useState('');
 
   useEffect(() => {
     if (IsSSG) {
@@ -35,8 +42,29 @@ export const PageList: React.FC<PageListProps> = (props: PageListProps) => {
     };
   }, []);
 
+  const autoCompleteData: AutocompleteData[] = props.entries.map((entry) => {
+    return {
+      value: `${entry.short_name} ${entry.long_name}`,
+      label: entry.long_name,
+      href: entry.href,
+    }
+  });
+
   return <div>
-    <SwitchButtom mode={mode} setMode={setMode} />
+    <Group style={{ maxWidth: 600 }}>
+      <SwitchButtom mode={mode} setMode={setMode} />
+      <Autocomplete
+        value={value}
+        onChange={setValue}
+        onItemSubmit={(value: AutocompleteData) => {
+          window.location.href = value.href;
+        }}
+        data={value.length > 0 ? autoCompleteData : []}
+        placeholder='Search'
+        style={{
+          flexGrow: 1,
+        }}></Autocomplete>
+    </Group>
     {
       (() => {
         switch (mode) {
@@ -55,11 +83,18 @@ type SwitchButtomProps = {
   setMode: (mode: Mode) => void;
 };
 const SwitchButtom: React.FC<SwitchButtomProps> = (props: SwitchButtomProps) => {
+  // https://github.com/vercel/next.js/discussions/21999
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    setReady(true);
+  }, []);
   const { mode, setMode } = props;
   return <div>
-    <button disabled={mode === Mode.List} onClick={() => setMode(Mode.List)}>List</button>
-    <button disabled={mode === Mode.Grid} onClick={() => setMode(Mode.Grid)}>Grid</button>
-  </div>
+    {ready ? <>
+      <button disabled={mode === Mode.List} onClick={() => setMode(Mode.List)}>List</button>
+      <button disabled={mode === Mode.Grid} onClick={() => setMode(Mode.Grid)}>Grid</button>
+    </> : <Skeleton height='2em' width='5em' />}
+  </div>;
 };
 
 const List: React.FC<PageListProps> = (props: PageListProps) => {

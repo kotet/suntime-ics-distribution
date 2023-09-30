@@ -1,7 +1,3 @@
-export type { PageContextServer }
-export type { PageContextClient }
-export type { PageContext }
-export type { PageProps }
 
 import type {
   PageContextBuiltInServer,
@@ -15,7 +11,9 @@ import type {
 } from 'vite-plugin-ssr/types'
 
 type Page = (pageProps: unknown) => React.ReactElement
-type PageProps = Record<string, unknown>
+export type PageProps = Record<string, unknown> & {
+  breadcrumbs?: BreadcrumbsEntry[]
+}
 
 export type PageContextCustom = {
   Page: Page
@@ -30,7 +28,12 @@ export type PageContextCustom = {
   }
 }
 
-type PageContextServer = PageContextBuiltInServer<Page> & PageContextCustom
-type PageContextClient = PageContextBuiltInClient<Page> & PageContextCustom
+export type PageContextServer = PageContextBuiltInServer<Page> & PageContextCustom
+export type PageContextClient = PageContextBuiltInClient<Page> & PageContextCustom
 
-type PageContext = PageContextClient | PageContextServer
+export type PageContext = PageContextClient | PageContextServer
+
+export type BreadcrumbsEntry = {
+  name: string
+  href?: string
+};

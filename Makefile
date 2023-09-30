@@ -5,7 +5,7 @@ include data/japan.Makefile
 INITPOETRY := . ./suntime-ics-generator/.venv/bin/activate
 POETRYDEPS := suntime-ics-generator/.venv/bin/activate
 
-GENERATEOPTIONS := --start-date-offset 300 --end-date-offset 600 --disable-alarm
+GENERATEOPTIONS := --start-date-offset -300 --end-date-offset 600 --disable-alarm
 
 ifeq (,$(wildcard P28-22.zip))
 P2822_AVAILABLE := 0
@@ -72,14 +72,9 @@ data/japan.Makefile: data/json/japan.json
 data/P28-22.shp: P28-22.zip
 	unzip -o -d data $< | grep "inflating:" | awk '{print $$2}' | xargs -I{} touch {}
 
-ifeq ($(P2822_AVAILABLE),1)
-data/json/japan.json: data/P28-22.shp scripts/generate_japan.json.py
+data/json/japan.json: 000230936.pdf scripts/generate_japan.json.py
 	mkdir -p ${@D}
 	poetry run -C scripts python scripts/generate_japan.json.py -i $< -o $@
-else
-data/json/japan.json: data_persistent/japan.json
-	cp $< $@
-endif
 
 data/ics/japan/sunrise-sunset/%-sunrise-sunset.ics: data/json/japan.json ${POETRYDEPS}
 	@echo "Generating $@"
