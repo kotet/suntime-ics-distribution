@@ -2,7 +2,7 @@ import fs from "fs";
 import { JapanJSONPath } from "../constants.server";
 import { JapanJSONEntry, JapanPageProps } from "./types";
 import { PageContextServer } from "../../renderer/types";
-import { SiteTitle, getBaseURL } from "../constants";
+import { BasePath, SiteTitle, getBaseURL } from "../constants";
 
 export async function prerender(): Promise<string[]> {
   const japanJson = fs.readFileSync(JapanJSONPath, "utf-8");
@@ -22,7 +22,7 @@ export async function onBeforeRender(pageContext: PageContextServer) {
   const props: JapanPageProps = {
     entry,
     breadcrumbs: [
-      {href: getBaseURL().href, name: SiteTitle},
+      {href: new URL(BasePath, getBaseURL()).href, name: SiteTitle},
       {name: "日本"},
       {name: entry.name_jp},
     ]

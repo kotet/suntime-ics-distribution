@@ -1,13 +1,10 @@
 import react from '@vitejs/plugin-react'
 import ssr from 'vite-plugin-ssr/plugin'
-import { UserConfig } from 'vite'
+import { defineConfig } from 'vite'
 
-const config: UserConfig = {
-  plugins: [
-    react(), ssr({
-      prerender: true,
-  })
-]
-}
-
-export default config
+export default defineConfig((c) => ({
+  base: c.mode === 'development' ? '/' : '/suntime-ics-distribution/',
+  plugins: [react(), ssr({
+    prerender: true,
+  })],
+}))

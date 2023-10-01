@@ -5,11 +5,8 @@ export const LocalStoragePrefix = 'suntime-ics-distribution';
 export const SiteTitle = '世界と日本の日の出と日の入りカレンダー';
 
 export function getBaseURL() {
-  return new URL(BasePath, IsDevelopment ? 'http://localhost:3000/' : 'https://kotet.jp/suntime-ics-distribution/')
+  return IsDevelopment ? 'http://localhost:3000' : 'https://kotet.jp';
 }
 
-// No need to hide because it is available at no cost and is intended to be embedded in the URL of the iframe
-// ref:
-// - https://developers.google.com/maps/documentation/embed/get-started
-// - https://developers.google.com/maps/documentation/embed/usage-and-billing
-export const GoogleMapsAPIKey = "AIzaSyBCoI0Wtax7X3DvyJzEhHLK4dRuOXMj-EE";
+export const GoogleMapsAPIKey = import.meta.env.VITE_MAPS_KEY;
+console.log('GoogleMapsAPIKey', GoogleMapsAPIKey);

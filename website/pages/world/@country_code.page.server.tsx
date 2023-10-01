@@ -1,5 +1,5 @@
 import { PageContextServer } from "../../renderer/types";
-import { SiteTitle, getBaseURL } from "../constants";
+import { BasePath, SiteTitle, getBaseURL } from "../constants";
 import { WorldJSONPath } from "../constants.server";
 import { WorldJSONEntry, WorldPageProps } from "./types";
 import fs from "fs";
@@ -22,7 +22,7 @@ export async function onBeforeRender(pageContext: PageContextServer) {
   const pageProps: WorldPageProps = {
     entry,
     breadcrumbs: [
-      { href: getBaseURL().href, name: SiteTitle },
+      { href: new URL(BasePath, getBaseURL()).href, name: SiteTitle },
       { name: "世界" },
       { name: entry.name_jp },
     ]

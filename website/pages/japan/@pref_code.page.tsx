@@ -1,16 +1,16 @@
 import { Group, Table } from "@mantine/core";
 import { JapanPageProps } from "./types";
 import { CopyableLink } from "../../components/copyable_link";
-import { getBaseURL } from "../constants";
+import { BasePath, getBaseURL } from "../constants";
 import { GoogleMap } from "../../components/google_map";
 import { CalendarViewer } from "../../components/calendar";
 import { weekAfter } from "../../utils/date";
 import { Disclaimer } from "../../components/disclaimer";
 
 export function Page({ entry }: JapanPageProps) {
-  const urlSunriseSunset = new URL(`/data/ics/japan/sunrise-sunset/${entry.prefcode.toLowerCase()}-sunrise-sunset.ics`, getBaseURL());
-  const urlSunrise = new URL(`/data/ics/japan/sunrise/${entry.prefcode.toLowerCase()}-sunrise.ics`, getBaseURL());
-  const urlSunset = new URL(`/data/ics/japan/sunset/${entry.prefcode.toLowerCase()}-sunset.ics`, getBaseURL());
+  const urlSunriseSunset = new URL(`${BasePath}./data/ics/japan/sunrise-sunset/${entry.prefcode.toLowerCase()}-sunrise-sunset.ics`, getBaseURL());
+  const urlSunrise = new URL(`${BasePath}./data/ics/japan/sunrise/${entry.prefcode.toLowerCase()}-sunrise.ics`, getBaseURL());
+  const urlSunset = new URL(`${BasePath}./data/ics/japan/sunset/${entry.prefcode.toLowerCase()}-sunset.ics`, getBaseURL());
   return (
     <>
       <h1>[{entry.prefcode}]: {entry.name_jp}</h1>

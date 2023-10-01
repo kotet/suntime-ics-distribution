@@ -103,7 +103,7 @@ data/ics/japan/sunset/%-sunset.ics: data/json/japan.json ${POETRYDEPS}
 	--lon `cat data/json/japan.json | jq -r '.[] | select(.prefcode == "${*}") | .capital_lon'` \
 	--output $@ --disable-sunrise ${GENERATEOPTIONS} 2> /dev/null
 
-.PHONY: clean serve
+.PHONY: clean serve ics
 clean:
 	rm -rf data/
 	rm -rf website/public/data/
@@ -111,3 +111,5 @@ clean:
 
 serve: all
 	cd website && yarn serve
+
+ics: $(ALL_ICS) website/public/data/ics/ website/public/data/json/

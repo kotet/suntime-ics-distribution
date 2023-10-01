@@ -2,3 +2,4 @@ node_modules/
 dist/
 public/
 *.mjs
+.env.local

@@ -30,11 +30,17 @@ jobs:
         with:
           virtualenvs-in-project: true
       - name: Build
+        env:
+          VITE_MAPS_KEY: ${{ secrets.VITE_MAPS_KEY }}
         run: |
           poetry -C scripts install
           poetry -C suntime-ics-generator install
           ls -la suntime-ics-generator/.venv/bin
-          make -j2
+          make -j2 ics
+          cd website
+          yarn install
+          yarn build
+          cd ..
       - name: Deploy
         if: github.ref == 'refs/heads/master'
         uses: peaceiris/actions-gh-pages@v3
