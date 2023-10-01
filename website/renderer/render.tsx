@@ -18,7 +18,7 @@ export const ReactRoot: React.FC<{ Page: React.ComponentType<unknown & PageProps
         colorScheme: darkMode ? 'dark' : 'light',
         globalStyles: () => ({
           '.adsbygoogle': {
-            maxWidth: 1200,
+            maxWidth: 600,
             minWidth: 120,
             minHeight: 50
           }
