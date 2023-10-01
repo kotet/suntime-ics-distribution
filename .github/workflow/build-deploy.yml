@@ -1,0 +1,37 @@
+name: Build and Deploy
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches: ["*"]
+    branches-ignore: [gh-pages]
+  schedule:
+  # Every month on the 1st at 09:33 UTC
+  - cron: '33 9 1 * *'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: lts
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.10.2
+      - name: Build
+        run: make -j2
+      - name: Deploy
+        if: github.ref == 'refs/heads/master'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./website/dist/client
+          force_orphan: true
