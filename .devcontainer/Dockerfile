@@ -37,7 +37,7 @@ RUN curl https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
 USER vscode
 ENV HOME /home/vscode
 
-ENV PYTHON_VERSION 3.10.2
+ENV PYTHON_VERSION 3.10.13
 ENV PYTHON_ROOT $HOME/local/python-$PYTHON_VERSION
 ENV PATH $PYTHON_ROOT/bin:$HOME/.poetry/bin:$PATH
 

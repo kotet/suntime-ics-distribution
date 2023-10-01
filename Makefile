@@ -103,10 +103,6 @@ data/ics/japan/sunset/%-sunset.ics: data/json/japan.json ${POETRYDEPS}
 	--lon `cat data/json/japan.json | jq -r '.[] | select(.prefcode == "${*}") | .capital_lon'` \
 	--output $@ --disable-sunrise ${GENERATEOPTIONS} 2> /dev/null
 
-# utils
-suntime-ics-generator/.venv/bin/activate: suntime-ics-generator/pyproject.toml
-	poetry -C suntime-ics-generator install
-
 .PHONY: clean serve
 clean:
 	rm -rf data/
