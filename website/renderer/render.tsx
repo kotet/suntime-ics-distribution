@@ -16,6 +16,13 @@ export const ReactRoot: React.FC<{ Page: React.ComponentType<unknown & PageProps
     <React.StrictMode>
       <MantineProvider withNormalizeCSS withGlobalStyles theme={{
         colorScheme: darkMode ? 'dark' : 'light',
+        globalStyles: () => ({
+          '.adsbygoogle': {
+            maxWidth: 1200,
+            minWidth: 120,
+            minHeight: 50
+          }
+        }),
       }}>
         <Notifications />
         <PageShell darkMode={darkMode} setDarkMode={setDarkMode} pageProps={props}>

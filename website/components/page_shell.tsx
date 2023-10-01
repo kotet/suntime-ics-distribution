@@ -3,6 +3,7 @@ import React from "react";
 import { IconBrandGithub, IconHome, IconMoon, IconSun } from "@tabler/icons-react";
 import { SiteTitle } from "../pages/constants";
 import { BreadcrumbsEntry, PageProps } from "../renderer/types";
+import { Ad } from "./ad";
 
 type PageShellProps = {
   children: React.ReactNode;
@@ -30,6 +31,9 @@ export const PageShell: React.FC<PageShellProps> = (props: PageShellProps) => {
     <Divider />
     <Container fluid px='md'>
       {props.children}
+    </Container>
+    <Container fluid py='lg'>
+      <Ad />
     </Container>
   </>;
 };
