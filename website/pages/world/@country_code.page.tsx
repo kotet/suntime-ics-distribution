@@ -16,7 +16,7 @@ export function Page({ entry }: WorldPageProps) {
       <Title>[{entry.country_code}]: {entry.name_jp}、{entry.capital_jp}</Title>
       <Text>{entry.name_en}, {entry.capital_en}</Text>
       <Table style={{
-        maxWidth: 800,
+        maxWidth: 1200,
       }} withColumnBorders>
         <tbody>
           <tr>
