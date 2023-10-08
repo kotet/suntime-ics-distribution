@@ -16,7 +16,7 @@ export function Page({ entry }: JapanPageProps) {
       <h1>[{entry.prefcode}]: {entry.name_jp}</h1>
       <p>{entry.name_en}, Japan</p>
       <Table style={{
-        maxWidth: 800,
+        maxWidth: 1200,
       }}>
         <tbody>
           <tr>
