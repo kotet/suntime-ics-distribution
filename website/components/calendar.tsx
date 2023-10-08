@@ -82,6 +82,16 @@ export const CalendarViewer: React.FC<CalendarViewerProps> = (props: CalendarVie
     }
   }, [zoomState, Zoom, sunriseData, props.initialStart, props.initialEnd]);
 
+  React.useEffect(() => {
+    if (chartRef.current !== null) {
+      const chart = chartRef.current as unknown as ChartJS<'scatter'>;
+      chart.zoomScale('x', {
+        min: start.getTime(),
+        max: end.getTime(),
+      }, "default");
+    }
+  }, [start, end]);
+
   const scatterGraphData = useMemo(() => {
     if (sunriseData === null || sunsetData === null) {
       return {
@@ -210,11 +220,14 @@ export const CalendarViewer: React.FC<CalendarViewerProps> = (props: CalendarVie
               marginLeft: 5,
             }}>
             <input type="date" value={start.toISOString().slice(0, 10)} onChange={(e) => {
-              setStart(new Date(e.target.value));
+              const d = new Date(e.target.value);
+              if (!Number.isNaN(d.getTime())) setStart(d);
             }} style={{ width: 600 * 0.45 }} />
             -
             <input type="date" value={end.toISOString().slice(0, 10)} onChange={(e) => {
-              setEnd(new Date(e.target.value));
+              const d = new Date(e.target.value);
+              if (!Number.isNaN(d.getTime())) setEnd(d);
+
             }} style={{ width: 600 * 0.45 }} />
           </Flex>
       }

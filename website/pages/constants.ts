@@ -9,4 +9,3 @@ export function getBaseURL() {
 }
 
 export const GoogleMapsAPIKey = import.meta.env.VITE_MAPS_KEY;
-console.log('GoogleMapsAPIKey', GoogleMapsAPIKey);
