@@ -1,0 +1,168 @@
+{
+  "_chunk-54f49186.js": {
+    "file": "assets/chunks/chunk-54f49186.js",
+    "imports": [
+      "_chunk-e33fb4e3.js"
+    ]
+  },
+  "_chunk-622bc554.js": {
+    "file": "assets/chunks/chunk-622bc554.js",
+    "imports": [
+      "_chunk-e33fb4e3.js"
+    ]
+  },
+  "_chunk-7cb7fa48.js": {
+    "file": "assets/chunks/chunk-7cb7fa48.js"
+  },
+  "_chunk-afb39c6a.js": {
+    "file": "assets/chunks/chunk-afb39c6a.js",
+    "imports": [
+      "_chunk-e33fb4e3.js"
+    ]
+  },
+  "_chunk-ced3e1b0.js": {
+    "dynamicImports": [
+      "node_modules/chartjs-plugin-zoom/dist/chartjs-plugin-zoom.esm.js"
+    ],
+    "file": "assets/chunks/chunk-ced3e1b0.js",
+    "imports": [
+      "_chunk-e33fb4e3.js",
+      "_chunk-afb39c6a.js",
+      "_chunk-e58dea07.js",
+      "_chunk-7cb7fa48.js"
+    ]
+  },
+  "_chunk-e28961ee.js": {
+    "file": "assets/chunks/chunk-e28961ee.js"
+  },
+  "_chunk-e33fb4e3.js": {
+    "file": "assets/chunks/chunk-e33fb4e3.js"
+  },
+  "_chunk-e58dea07.js": {
+    "file": "assets/chunks/chunk-e58dea07.js",
+    "imports": [
+      "_chunk-e33fb4e3.js"
+    ]
+  },
+  "node_modules/chartjs-plugin-zoom/dist/chartjs-plugin-zoom.esm.js": {
+    "file": "assets/chunks/chunk-d12669a7.js",
+    "imports": [
+      "_chunk-e33fb4e3.js",
+      "_chunk-ced3e1b0.js",
+      "_chunk-afb39c6a.js",
+      "_chunk-e58dea07.js",
+      "_chunk-7cb7fa48.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "node_modules/chartjs-plugin-zoom/dist/chartjs-plugin-zoom.esm.js"
+  },
+  "node_modules/vite-plugin-ssr/dist/esm/client/client-routing-runtime/entry.js": {
+    "dynamicImports": [
+      "pages/index/index.page.tsx",
+      "pages/japan/@pref_code.page.tsx",
+      "pages/world/@country_code.page.tsx",
+      "renderer/_default.page.client.tsx",
+      "pages/index/index.page.server.tsx?extractAssets&lang.tsx",
+      "pages/japan/@pref_code.page.server.tsx?extractAssets&lang.tsx",
+      "pages/world/@country_code.page.server.tsx?extractAssets&lang.tsx",
+      "renderer/_default.page.server.tsx?extractAssets&lang.tsx"
+    ],
+    "file": "assets/entries/entry-client-routing.621a2998.js",
+    "imports": [
+      "_chunk-e28961ee.js",
+      "_chunk-7cb7fa48.js"
+    ],
+    "isEntry": true,
+    "src": "node_modules/vite-plugin-ssr/dist/esm/client/client-routing-runtime/entry.js"
+  },
+  "node_modules/vite-plugin-ssr/dist/esm/client/server-routing-runtime/entry.js": {
+    "dynamicImports": [
+      "pages/index/index.page.tsx",
+      "pages/japan/@pref_code.page.tsx",
+      "pages/world/@country_code.page.tsx",
+      "renderer/_default.page.client.tsx",
+      "pages/index/index.page.server.tsx?extractAssets&lang.tsx",
+      "pages/japan/@pref_code.page.server.tsx?extractAssets&lang.tsx",
+      "pages/world/@country_code.page.server.tsx?extractAssets&lang.tsx",
+      "renderer/_default.page.server.tsx?extractAssets&lang.tsx"
+    ],
+    "file": "assets/entries/entry-server-routing.ff8507b8.js",
+    "imports": [
+      "_chunk-e28961ee.js",
+      "_chunk-7cb7fa48.js"
+    ],
+    "isEntry": true,
+    "src": "node_modules/vite-plugin-ssr/dist/esm/client/server-routing-runtime/entry.js"
+  },
+  "pages/index/index.page.server.tsx?extractAssets&lang.tsx": {
+    "file": "assets/entries/pages_index_index.page.server.extractAssets.4ed993c7.js",
+    "isEntry": true,
+    "src": "pages/index/index.page.server.tsx?extractAssets&lang.tsx"
+  },
+  "pages/index/index.page.tsx": {
+    "file": "assets/entries/pages_index_index.page.74d19d02.js",
+    "imports": [
+      "_chunk-e33fb4e3.js",
+      "_chunk-54f49186.js",
+      "_chunk-afb39c6a.js"
+    ],
+    "isDynamicEntry": true,
+    "isEntry": true,
+    "src": "pages/index/index.page.tsx"
+  },
+  "pages/japan/@pref_code.page.server.tsx?extractAssets&lang.tsx": {
+    "file": "assets/entries/pages_japan_-pref_code.page.server.extractAssets.4ed993c7.js",
+    "isEntry": true,
+    "src": "pages/japan/@pref_code.page.server.tsx?extractAssets&lang.tsx"
+  },
+  "pages/japan/@pref_code.page.tsx": {
+    "file": "assets/entries/pages_japan_-pref_code.page.1d9a3e21.js",
+    "imports": [
+      "_chunk-e33fb4e3.js",
+      "_chunk-ced3e1b0.js",
+      "_chunk-afb39c6a.js",
+      "_chunk-e58dea07.js",
+      "_chunk-7cb7fa48.js"
+    ],
+    "isDynamicEntry": true,
+    "isEntry": true,
+    "src": "pages/japan/@pref_code.page.tsx"
+  },
+  "pages/world/@country_code.page.server.tsx?extractAssets&lang.tsx": {
+    "file": "assets/entries/pages_world_-country_code.page.server.extractAssets.4ed993c7.js",
+    "isEntry": true,
+    "src": "pages/world/@country_code.page.server.tsx?extractAssets&lang.tsx"
+  },
+  "pages/world/@country_code.page.tsx": {
+    "file": "assets/entries/pages_world_-country_code.page.3d06baa7.js",
+    "imports": [
+      "_chunk-e33fb4e3.js",
+      "_chunk-ced3e1b0.js",
+      "_chunk-622bc554.js",
+      "_chunk-afb39c6a.js",
+      "_chunk-e58dea07.js",
+      "_chunk-7cb7fa48.js"
+    ],
+    "isDynamicEntry": true,
+    "isEntry": true,
+    "src": "pages/world/@country_code.page.tsx"
+  },
+  "renderer/_default.page.client.tsx": {
+    "file": "assets/entries/renderer_default.page.client.cecfd552.js",
+    "imports": [
+      "_chunk-e33fb4e3.js",
+      "_chunk-54f49186.js",
+      "_chunk-e58dea07.js",
+      "_chunk-622bc554.js"
+    ],
+    "isDynamicEntry": true,
+    "isEntry": true,
+    "src": "renderer/_default.page.client.tsx"
+  },
+  "renderer/_default.page.server.tsx?extractAssets&lang.tsx": {
+    "file": "assets/entries/renderer_default.page.server.extractAssets.ed77219c.js",
+    "isDynamicEntry": true,
+    "isEntry": true,
+    "src": "renderer/_default.page.server.tsx?extractAssets&lang.tsx"
+  }
+}
