@@ -2,8 +2,9 @@ ALL_ICS :=
 include data/world.Makefile
 include data/japan.Makefile
 
-INITPOETRY := . ./suntime-ics-generator/.venv/bin/activate
-POETRYDEPS := suntime-ics-generator/.venv/bin/activate
+INITPOETRY_GEN := . ./suntime-ics-generator/.venv/bin/activate
+INITPOETRY_SCRIPTS := . ./scripts/.venv/bin/activate
+POETRYDEPS := suntime-ics-generator/.venv/bin/activate scripts/.venv/bin/activate
 
 GENERATEOPTIONS := --start-date-offset -300 --end-date-offset 600 --disable-alarm
 
@@ -23,6 +24,12 @@ website/public/data/json/: data/json/world.json data/json/japan.json
 	mkdir -p ${@D}
 	cp -R data/json/* $@/
 
+suntime-ics-generator/.venv/bin/activate: ./suntime-ics-generator/pyproject.toml
+	cd suntime-ics-generator && poetry install
+
+scripts/.venv/bin/activate: ./scripts/pyproject.toml
+	cd scripts && poetry install
+
 # world
 data/world.Makefile: data/json/world.json
 	cat data/json/world.json | jq '.[] | .country_code' | sort | tr '[A-Z]' '[a-z]' | xargs -I{} echo "ALL_ICS += data/ics/world/sunrise-sunset/{}-sunrise-sunset.ics" > $@
@@ -34,12 +41,13 @@ data/r0411world_utf8.csv: asti-datr0411wc.zip
 
 data/json/world.json: data/r0411world_utf8.csv scripts/generate_world.json.py
 	mkdir -p ${@D}
-	poetry run -C scripts python scripts/generate_world.json.py -i $< -o $@
+	${INITPOETRY_SCRIPTS} \
+	&& poetry run -C scripts python scripts/generate_world.json.py -i $< -o $@
 
 data/ics/world/sunrise-sunset/%-sunrise-sunset.ics: data/json/world.json ${POETRYDEPS}
 	@echo "Generating $@"
 	@mkdir -p "${@D}"
-	@${INITPOETRY} && \
+	@${INITPOETRY_GEN} && \
 	python suntime-ics-generator/generate-calendar.py \
 	--lat `cat data/json/world.json | jq -r '.[] | select(.country_code == "$(shell echo $* | tr '[a-z]' '[A-Z]')") | .lat'` \
 	--lon `cat data/json/world.json | jq -r '.[] | select(.country_code == "$(shell echo $* | tr '[a-z]' '[A-Z]')") | .lon'` \
@@ -48,7 +56,7 @@ data/ics/world/sunrise-sunset/%-sunrise-sunset.ics: data/json/world.json ${POETR
 data/ics/world/sunrise/%-sunrise.ics: data/json/world.json ${POETRYDEPS}
 	@echo "Generating $@"
 	@mkdir -p "${@D}"
-	@${INITPOETRY} && \
+	@${INITPOETRY_GEN} && \
 	python suntime-ics-generator/generate-calendar.py \
 	--lat `cat data/json/world.json | jq -r '.[] | select(.country_code == "$(shell echo $* | tr '[a-z]' '[A-Z]')") | .lat'` \
 	--lon `cat data/json/world.json | jq -r '.[] | select(.country_code == "$(shell echo $* | tr '[a-z]' '[A-Z]')") | .lon'` \
@@ -57,7 +65,7 @@ data/ics/world/sunrise/%-sunrise.ics: data/json/world.json ${POETRYDEPS}
 data/ics/world/sunset/%-sunset.ics: data/json/world.json ${POETRYDEPS}
 	@echo "Generating $@"
 	@mkdir -p "${@D}"
-	@${INITPOETRY} && \
+	@${INITPOETRY_GEN} && \
 	python suntime-ics-generator/generate-calendar.py \
 	--lat `cat data/json/world.json | jq -r '.[] | select(.country_code == "$(shell echo $* | tr '[a-z]' '[A-Z]')") | .lat'` \
 	--lon `cat data/json/world.json | jq -r '.[] | select(.country_code == "$(shell echo $* | tr '[a-z]' '[A-Z]')") | .lon'` \
@@ -72,14 +80,15 @@ data/japan.Makefile: data/json/japan.json
 data/P28-22.shp: P28-22.zip
 	unzip -o -d data $< | grep "inflating:" | awk '{print $$2}' | xargs -I{} touch {}
 
-data/json/japan.json: 000230936.pdf scripts/generate_japan.json.py
+data/json/japan.json: 000230936.pdf scripts/generate_japan.json.py ${POETRYDEPS}
 	mkdir -p ${@D}
-	poetry run -C scripts python scripts/generate_japan.json.py -i $< -o $@
+	${INITPOETRY_SCRIPTS} \
+	&& poetry run -C scripts python scripts/generate_japan.json.py -i $< -o $@
 
 data/ics/japan/sunrise-sunset/%-sunrise-sunset.ics: data/json/japan.json ${POETRYDEPS}
 	@echo "Generating $@"
 	@mkdir -p "${@D}"
-	@${INITPOETRY} && \
+	@${INITPOETRY_GEN} && \
 	python suntime-ics-generator/generate-calendar.py \
 	--lat `cat data/json/japan.json | jq -r '.[] | select(.prefcode == "${*}") | .capital_lat'` \
 	--lon `cat data/json/japan.json | jq -r '.[] | select(.prefcode == "${*}") | .capital_lon'` \
@@ -88,7 +97,7 @@ data/ics/japan/sunrise-sunset/%-sunrise-sunset.ics: data/json/japan.json ${POETR
 data/ics/japan/sunrise/%-sunrise.ics: data/json/japan.json ${POETRYDEPS}
 	@echo "Generating $@"
 	@mkdir -p "${@D}"
-	@${INITPOETRY} && \
+	@${INITPOETRY_GEN} && \
 	python suntime-ics-generator/generate-calendar.py \
 	--lat `cat data/json/japan.json | jq -r '.[] | select(.prefcode == "${*}") | .capital_lat'` \
 	--lon `cat data/json/japan.json | jq -r '.[] | select(.prefcode == "${*}") | .capital_lon'` \
@@ -97,7 +106,7 @@ data/ics/japan/sunrise/%-sunrise.ics: data/json/japan.json ${POETRYDEPS}
 data/ics/japan/sunset/%-sunset.ics: data/json/japan.json ${POETRYDEPS}
 	@echo "Generating $@"
 	@mkdir -p "${@D}"
-	@${INITPOETRY} && \
+	@${INITPOETRY_GEN} && \
 	python suntime-ics-generator/generate-calendar.py \
 	--lat `cat data/json/japan.json | jq -r '.[] | select(.prefcode == "${*}") | .capital_lat'` \
 	--lon `cat data/json/japan.json | jq -r '.[] | select(.prefcode == "${*}") | .capital_lon'` \

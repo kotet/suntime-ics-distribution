@@ -40,6 +40,6 @@ export async function onBeforeRender(pageContext: PageContextServer) {
 export function getDocumentProps(pageProps: JapanPageProps) {
   return {
     title: `${pageProps.entry.name_jp}庁の日の出と日の入り`,
-    description: `${pageProps.entry.name_jp}の日の出と日の入りカレンダー`,
+    description: `${pageProps.entry.name_jp}の日の出と日の入りカレンダー。Googleカレンダーなどにインポートして使えます`,
   }
 }

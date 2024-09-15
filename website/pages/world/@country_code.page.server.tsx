@@ -35,6 +35,6 @@ export async function onBeforeRender(pageContext: PageContextServer) {
 export function getDocumentProps(props: WorldPageProps) {
   return {
     title: `${props.entry.capital_jp}の日の出と日の入り`,
-    description: `${props.entry.name_jp}の${props.entry.capital_jp}の日の出と日の入りのカレンダー`,
+    description: `${props.entry.name_jp}の${props.entry.capital_jp}の日の出と日の入りのカレンダー。Googleカレンダーなどにインポートして使えます`,
   }
 }

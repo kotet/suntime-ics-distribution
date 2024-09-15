@@ -7,4 +7,7 @@ export default defineConfig((c) => ({
   plugins: [react(), ssr({
     prerender: true,
   })],
+  server: {
+    host: '0.0.0.0',
+  },
 }))
