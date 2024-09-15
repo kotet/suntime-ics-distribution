@@ -4,9 +4,12 @@ import { defineConfig } from 'vite'
 
 export default defineConfig((c) => ({
   base: c.mode === 'development' ? '/' : '/suntime-ics-distribution/',
-  plugins: [react(), ssr({
-    prerender: true,
-  })],
+  plugins: [
+    react(),
+    ssr({
+      prerender: true,
+    }),
+  ],
   server: {
     host: '0.0.0.0',
   },

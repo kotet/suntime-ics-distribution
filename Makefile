@@ -15,7 +15,7 @@ P2822_AVAILABLE := 1
 endif
 
 all: $(ALL_ICS) website/public/data/ics/ website/public/data/json/
-	cd website && yarn install && yarn build
+	cd website && yarn build
 
 website/public/data/ics/: $(ALL_ICS)
 	mkdir -p ${@D}
