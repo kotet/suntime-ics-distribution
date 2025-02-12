@@ -27,8 +27,10 @@
             "extensions": [
                 "visualstudioexptteam.vscodeintellicode",
                 "ms-python.python",
+                "charliermarsh.ruff",
                 "dbaeumer.vscode-eslint",
-                "github.vscode-github-actions"
+                "tamasfe.even-better-toml",
+                "github.vscode-github-actions",
             ],
         }
     },
