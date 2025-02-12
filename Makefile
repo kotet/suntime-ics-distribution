@@ -49,7 +49,7 @@ data/world.Makefile: data/json/world.json
 data/r0411world_utf8.csv: asti-datr0411wc.zip
 	unzip -o -d data $< | grep "inflating:" | awk '{print $$2}' | xargs -I{} touch {}
 
-data/json/world.json: data/r0411world_utf8.csv scripts/generate_world.json.py
+data/json/world.json: data/r0411world_utf8.csv scripts/generate_world.json.py ${POETRYDEPS}
 	mkdir -p ${@D}
 	${INITPYTHON_SCRIPTS} \
 	&& python scripts/generate_world.json.py -i $< -o $@
@@ -131,6 +131,7 @@ clean:
 clean-dist: clean
 	git submodule deinit -f suntime-ics-generator
 	git ls-files --ignored --cached --exclude-standard | xargs -I{} git rm -r --cached {}
+	rm -r scripts/.venv/
 
 serve: all
 	cd website && yarn serve
