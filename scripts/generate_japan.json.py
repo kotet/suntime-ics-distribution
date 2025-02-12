@@ -1,12 +1,12 @@
-from typing import List, Tuple
 import argparse
-import sys
 import csv
 import re
-from typing import Optional, NamedTuple
+import sys
 from dataclasses import dataclass
+from typing import List, NamedTuple, Optional
 
 from pdfminer.high_level import extract_text
+
 
 class PrefInfo(NamedTuple):
     code: int
@@ -73,7 +73,7 @@ def searchPrefByName(name: str) -> PrefInfo:
     for pref in prefectures:
         if pref[2] in name:
             return pref
-    return None
+    raise ValueError(f"prefecture {name} not found")
 
 # 都道府県の庁舎及び東西南北端点の経緯度(世界測地系）
 #

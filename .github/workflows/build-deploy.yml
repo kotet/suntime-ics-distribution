@@ -24,23 +24,14 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
-          python-version: 3.10.13
-      - name: Setup poetry
-        uses: snok/install-poetry@v1
-        with:
-          virtualenvs-in-project: true
+          python-version: 3.13
+      - name: Install the latest version of uv
+        uses: astral-sh/setup-uv@v5
       - name: Build
         env:
           VITE_MAPS_KEY: ${{ secrets.VITE_MAPS_KEY }}
         run: |
-          poetry -C scripts install
-          poetry -C suntime-ics-generator install
-          ls -la suntime-ics-generator/.venv/bin
-          make -j2 ics
-          cd website
-          yarn install
-          yarn build
-          cd ..
+          make -j$(nproc)
       - name: Deploy
         if: github.ref == 'refs/heads/master'
         uses: peaceiris/actions-gh-pages@v3
