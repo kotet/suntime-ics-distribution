@@ -4,11 +4,16 @@ import { PageList, PageListEntry } from "../../components/page_list";
 
 export { Page }
 
+function country_code_to_emoji(code: string): string {
+  const codePoint = code.toUpperCase().split('').map((c) => 0x1F1E6 + c.charCodeAt(0) - 'A'.charCodeAt(0));
+  return String.fromCodePoint(...codePoint);
+}
+
 function Page(props: IndexPageProps) {
   const worldPageListEntries: PageListEntry[] = props.world.sort((a, b) => a.country_code.localeCompare(b.country_code)).map((entry) => {
     const url = new URL(`${BasePath}./world/${entry.country_code.toLowerCase()}/`, getBaseURL()).href;
     return {
-      short_name: entry.country_code,
+      short_name: `${country_code_to_emoji(entry.country_code)} ${entry.country_code}`,
       long_name: `${entry.name_jp}、${entry.capital_jp} / ${entry.name_en}, ${entry.capital_en}`,
       href: url,
     }
