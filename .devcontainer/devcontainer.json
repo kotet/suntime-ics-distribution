@@ -31,6 +31,7 @@
                 "dbaeumer.vscode-eslint",
                 "tamasfe.even-better-toml",
                 "github.vscode-github-actions",
+                "Google.gemini-cli-vscode-ide-companion"
             ],
         }
     },
