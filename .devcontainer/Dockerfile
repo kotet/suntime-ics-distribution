@@ -2,6 +2,8 @@ FROM mcr.microsoft.com/devcontainers/python:3.13
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
+RUN ln -sf /bin/bash /bin/sh
+
 RUN pipx install uv
 
 RUN apt-get update \
