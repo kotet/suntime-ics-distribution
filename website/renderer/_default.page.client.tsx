@@ -1,3 +1,5 @@
+import '@mantine/core/styles.css';
+
 export { render }
 
 import { hydrateRoot } from 'react-dom/client'

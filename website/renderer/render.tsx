@@ -2,6 +2,7 @@ import React from "react";
 import { Notifications } from "@mantine/notifications";
 import type { PageProps } from "./types";
 import { MantineProvider } from "@mantine/core";
+import { Global } from '@emotion/react';
 import { PageShell } from "../components/page_shell";
 import { LocalStoragePrefix } from "../pages/constants";
 import { useLocalStorageSSG } from "./useLocalStorageSSG";
@@ -14,16 +15,14 @@ export const ReactRoot: React.FC<{ Page: React.ComponentType<unknown & PageProps
   });
   return <>
     <React.StrictMode>
-      <MantineProvider withNormalizeCSS withGlobalStyles theme={{
-        colorScheme: darkMode ? 'dark' : 'light',
-        globalStyles: () => ({
+      <MantineProvider forceColorScheme={darkMode ? 'dark' : 'light'}>
+        <Global styles={{
           '.adsbygoogle': {
             maxWidth: 600,
             minWidth: 120,
             minHeight: 50
           }
-        }),
-      }}>
+        }} />
         <Notifications />
         <PageShell darkMode={darkMode} setDarkMode={setDarkMode} pageProps={props}>
           {

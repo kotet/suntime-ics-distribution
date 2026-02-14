@@ -15,7 +15,7 @@ export const PageShell: React.FC<PageShellProps> = (props: PageShellProps) => {
   const crumbs = props.pageProps.breadcrumbs;
   return <>
     <Container fluid px='md' p='lg'>
-      <Group position='apart'>
+      <Group justify='space-between'>
         <Stack>
           <Title>{SiteTitle}</Title>
           <Text>日の出と日の入りの時刻のicsファイルです。Googleカレンダーなどにインポートして使えます</Text>
@@ -45,7 +45,7 @@ const BreadcrumbsFromProps: React.FC<BreadcrumbsProps> = ({ entries }: Breadcrum
   if (!entries) {
     return <></>;
   }
-  return <Breadcrumbs sx={{
+  return <Breadcrumbs style={{
     fontSize: '0.8rem',
   }} separator={'>'} p='xs'>{entries.map(((e, i) => {
     if (e.href) {

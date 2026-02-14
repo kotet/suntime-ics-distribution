@@ -17,7 +17,7 @@ export const CopyableLink: React.FC<CopyableLinkProps> = ({ href, children }) =>
   })
 };
   }
-return <Group position='apart'>
+return <Group justify='space-between'>
   <Text component='a' href={href.toString()}>{children ? children : href.toString()}</Text>
   <CopyButton value={href.toString()} >
     {(

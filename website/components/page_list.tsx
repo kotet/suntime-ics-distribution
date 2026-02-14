@@ -56,8 +56,11 @@ export const PageList: React.FC<PageListProps> = (props: PageListProps) => {
       <Autocomplete
         value={value}
         onChange={setValue}
-        onItemSubmit={(value: AutocompleteData) => {
-          window.location.href = value.href;
+        onOptionSubmit={(val) => {
+          const selected = autoCompleteData.find((item) => item.value === val);
+          if (selected) {
+            window.location.href = selected.href;
+          }
         }}
         data={value.length > 0 ? autoCompleteData : []}
         placeholder='Search'
