@@ -31,7 +31,7 @@ jobs:
         env:
           VITE_MAPS_KEY: ${{ secrets.VITE_MAPS_KEY }}
         run: |
-          make -j$(nproc)
+          make -j$(nproc) SHELL=/bin/bash
       - name: Deploy
         if: github.ref == 'refs/heads/master'
         uses: peaceiris/actions-gh-pages@v3
