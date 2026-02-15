@@ -2,11 +2,15 @@ import { WorldJSONEntry } from "../world/types";
 import fs from "fs";
 import { JapanJSONPath, WorldJSONPath } from "../constants.server";
 import { JapanJSONEntry } from "../japan/types";
+import i18n from "../../utils/i18n";
 
-export const documentProps = {
-  title: '世界と日本の日の出と日の入りカレンダー',
-  description: '世界と日本の日の出と日の入りカレンダー',
-};
+export function getDocumentProps() {
+  const t = i18n.t;
+  return {
+    title: t('site_title_full'),
+    description: t('site_description'),
+  }
+}
 
 export async function prerender() {
   return {

@@ -1,0 +1,19 @@
+{
+  "context": {
+    "fileName": "AGENTS.md"
+  },
+  "mcpServers": {
+    "context7": {
+      "httpUrl": "https://mcp.context7.com/mcp"
+    }
+  },
+  "general": {
+    "defaultApprovalMode": "auto_edit"
+  },
+  "ide": {
+    "enabled": true
+  },
+  "security": {
+    "enablePermanentToolApproval": true
+  }
+}

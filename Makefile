@@ -1,11 +1,11 @@
 ALL_ICS :=
 ifneq ($(MAKECMDGOALS),clean-dist)
-include data/world.Makefile
-include data/japan.Makefile
+-include data/world.Makefile
+-include data/japan.Makefile
 endif
 
-INITPYTHON_GEN := . ./suntime-ics-generator/.venv/bin/activate
-INITPYTHON_SCRIPTS := . ./scripts/.venv/bin/activate
+INITPYTHON_GEN := source ./suntime-ics-generator/.venv/bin/activate
+INITPYTHON_SCRIPTS := source ./scripts/.venv/bin/activate
 POETRYDEPS := suntime-ics-generator/.venv/bin/activate scripts/.venv/bin/activate
 
 GENERATEOPTIONS := --start-date-offset -300 --end-date-offset 600 --disable-alarm
@@ -132,6 +132,7 @@ clean-dist: clean
 	git submodule deinit -f suntime-ics-generator
 	git ls-files --ignored --cached --exclude-standard | xargs -I{} git rm -r --cached {}
 	rm -r scripts/.venv/
+	rm -r suntime-ics-generator/.venv/
 
 serve: all
 	cd website && yarn serve

@@ -34,6 +34,7 @@ export type PageContextClient = PageContextBuiltInClient<Page> & PageContextCust
 export type PageContext = PageContextClient | PageContextServer
 
 export type BreadcrumbsEntry = {
-  name: string
+  i18n_key: string
+  values?: Record<string, string | number>
   href?: string
 };

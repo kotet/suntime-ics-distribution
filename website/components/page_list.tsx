@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { IsSSG } from '../pages/constants';
 import { Autocomplete, Group, Skeleton } from '@mantine/core';
+import { useTranslation } from 'react-i18next';
 
 export type PageListEntry = {
   short_name: string;
@@ -22,6 +23,8 @@ type AutocompleteData = {
 export const PageList: React.FC<PageListProps> = (props: PageListProps) => {
   const [mode, setMode] = React.useState<Mode>(Mode.List);
   const [value, setValue] = React.useState('');
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (IsSSG) {
@@ -56,11 +59,14 @@ export const PageList: React.FC<PageListProps> = (props: PageListProps) => {
       <Autocomplete
         value={value}
         onChange={setValue}
-        onItemSubmit={(value: AutocompleteData) => {
-          window.location.href = value.href;
+        onOptionSubmit={(val) => {
+          const selected = autoCompleteData.find((item) => item.value === val);
+          if (selected) {
+            window.location.href = selected.href;
+          }
         }}
         data={value.length > 0 ? autoCompleteData : []}
-        placeholder='Search'
+        placeholder={t('search_placeholder')}
         style={{
           flexGrow: 1,
         }}></Autocomplete>

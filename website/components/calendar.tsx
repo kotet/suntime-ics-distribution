@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo } from "react";
 import ICAL from 'ical';
 
-import { Skeleton, useMantineTheme, Stack, Flex, Text } from "@mantine/core";
+import { Skeleton, useMantineTheme, useMantineColorScheme, Stack, Flex, Text } from "@mantine/core";
 
 import { Scatter } from 'react-chartjs-2';
 import 'chartjs-adapter-moment';
@@ -40,7 +40,8 @@ export const CalendarViewer: React.FC<CalendarViewerProps> = (props: CalendarVie
   const [width, setWidth] = React.useState<number>(props.width ?? 600);
   const height = props.height ?? 450;
 
-  const isDarkMode = theme.colorScheme === 'dark';
+  const { colorScheme } = useMantineColorScheme();
+  const isDarkMode = colorScheme === 'dark';
 
   useEffect(() => {
     const h = () => {
@@ -204,7 +205,7 @@ export const CalendarViewer: React.FC<CalendarViewerProps> = (props: CalendarVie
   return <>
     <Stack
       ref={rootRef}
-      sx={{
+      style={{
         gap: 0,
         paddingTop: 10,
         paddingBottom: 10,
@@ -215,7 +216,7 @@ export const CalendarViewer: React.FC<CalendarViewerProps> = (props: CalendarVie
           <Skeleton width={width} height={30} /> :
           <Flex
             wrap={'wrap'}
-            sx={{
+            style={{
               gap: '1em',
               marginLeft: 5,
             }}>
@@ -232,7 +233,7 @@ export const CalendarViewer: React.FC<CalendarViewerProps> = (props: CalendarVie
           </Flex>
       }
       <Skeleton width={width} height={30} visible={sunriseData === null || sunsetData === null}>
-        <Text sx={{ marginLeft: 5 }} span>Timezone: {Intl.DateTimeFormat().resolvedOptions().timeZone}</Text>
+        <Text style={{ marginLeft: 5 }} span>Timezone: {Intl.DateTimeFormat().resolvedOptions().timeZone}</Text>
       </Skeleton>
       <Skeleton visible={sunriseData === null || sunsetData === null} width={width} height={height - 80}>
         {
