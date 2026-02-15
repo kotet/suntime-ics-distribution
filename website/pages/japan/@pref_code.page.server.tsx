@@ -2,7 +2,8 @@ import fs from "fs";
 import { JapanJSONPath } from "../constants.server";
 import { JapanJSONEntry, JapanPageProps } from "./types";
 import { PageContextServer } from "../../renderer/types";
-import { BasePath, SiteTitle, getBaseURL } from "../constants";
+import { BasePath, getBaseURL } from "../constants";
+import i18n from "../../utils/i18n";
 
 export async function prerender(): Promise<string[]> {
   const japanJson = fs.readFileSync(JapanJSONPath, "utf-8");
@@ -16,15 +17,18 @@ export async function onBeforeRender(pageContext: PageContextServer) {
   const entries = JSON.parse(japanJson) as JapanJSONEntry[];
   const code = pageContext.routeParams.pref_code.toLowerCase();
   const entry = entries.find(entry => entry.prefcode.toLowerCase() === code);
+
+  const t = i18n.t;
+
   if (!entry) {
     throw new Error(`not found: ${code}`);
   }
   const props: JapanPageProps = {
     entry,
     breadcrumbs: [
-      {href: new URL(BasePath, getBaseURL()).href, name: SiteTitle},
-      {name: "日本"},
-      {name: entry.name_jp},
+      {href: new URL(BasePath, getBaseURL()).href, i18n_key: 'site_title_short'},
+      {i18n_key: 'japan'},
+      {i18n_key: 'prefecture_name', values: entry},
     ]
   }
   if (!props) {

@@ -1,6 +1,7 @@
 import { BasePath, getBaseURL } from "../constants";
 import { IndexPageProps } from "./types";
 import { PageList, PageListEntry } from "../../components/page_list";
+import { useTranslation } from "react-i18next";
 
 export { Page }
 
@@ -10,11 +11,12 @@ function country_code_to_emoji(code: string): string {
 }
 
 function Page(props: IndexPageProps) {
+  const { t } = useTranslation();
   const worldPageListEntries: PageListEntry[] = props.world.sort((a, b) => a.country_code.localeCompare(b.country_code)).map((entry) => {
     const url = new URL(`${BasePath}./world/${entry.country_code.toLowerCase()}/`, getBaseURL()).href;
     return {
       short_name: `${country_code_to_emoji(entry.country_code)} ${entry.country_code}`,
-      long_name: `${entry.name_jp}、${entry.capital_jp} / ${entry.name_en}, ${entry.capital_en}`,
+      long_name: t('country_long_name', entry),
       href: url,
     }
   });
@@ -22,15 +24,15 @@ function Page(props: IndexPageProps) {
     const url = new URL(`${BasePath}./japan/${entry.prefcode.toLowerCase()}/`, getBaseURL()).href;
     return {
       short_name: entry.name_jp,
-      long_name: `[${entry.prefcode.padStart(2, '0')}] ${entry.name_jp}, ${entry.name_jp}庁 / ${entry.name_en}`,
+      long_name: t('japan_long_name', {...entry, prefcode_pad: entry.prefcode.padStart(2, '0')}),
       href: url,
     }
   });
   return (
     <>
-      <h2>世界</h2>
+      <h2>{t('world')}</h2>
       <PageList entries={worldPageListEntries} />
-      <h2>日本</h2>
+      <h2>{t('japan')}</h2>
       <PageList entries={japanPageListEntries} />
     </>
   )

@@ -6,30 +6,32 @@ import { WorldPageProps } from "./types"
 import { Group, Table, Text, Title } from "@mantine/core";
 import { weekAfter } from "../../utils/date";
 import { Disclaimer } from "../../components/disclaimer";
+import { useTranslation } from "react-i18next";
 
 export function Page({ entry }: WorldPageProps) {
   const urlSunriseSunset = new URL(`${BasePath}./data/ics/world/sunrise-sunset/${entry.country_code.toLowerCase()}-sunrise-sunset.ics`, getBaseURL());
   const urlSunrise = new URL(`${BasePath}./data/ics/world/sunrise/${entry.country_code.toLowerCase()}-sunrise.ics`, getBaseURL());
   const urlSunset = new URL(`${BasePath}./data/ics/world/sunset/${entry.country_code.toLowerCase()}-sunset.ics`, getBaseURL());
+  const { t } = useTranslation();
   return (
     <>
-      <Title>[{entry.country_code}]: {entry.name_jp}、{entry.capital_jp}</Title>
-      <Text>{entry.name_en}, {entry.capital_en}</Text>
+      <Title>{t('country_page_title_main', entry)}</Title>
+      <Text>{t('country_page_title_sub', entry)}</Text>
       <Table style={{
         maxWidth: 1200,
       }} withColumnBorders>
         <tbody>
           <tr>
-            <td>日の出</td>
-            <td><CopyableLink href={urlSunriseSunset} /></td>
-          </tr>
-          <tr>
-            <td>日の入り</td>
+            <td>{t('sunrise')}</td>
             <td><CopyableLink href={urlSunrise} /></td>
           </tr>
           <tr>
-            <td>日の出と日の入り</td>
+            <td>{t('sunset')}</td>
             <td><CopyableLink href={urlSunset} /></td>
+          </tr>
+          <tr>
+            <td>{t('sunrise_sunset')}</td>
+            <td><CopyableLink href={urlSunriseSunset} /></td>
           </tr>
         </tbody>
       </Table>
