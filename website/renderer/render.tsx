@@ -1,4 +1,6 @@
 import React from "react";
+import "@mantine/core/styles.css";
+import "@mantine/notifications/styles.css";
 import { Notifications } from "@mantine/notifications";
 import type { PageProps } from "./types";
 import { MantineProvider } from "@mantine/core";

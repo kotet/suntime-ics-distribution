@@ -1,10 +1,14 @@
-import '@mantine/core/styles.css';
-
-export { render }
-
+import "@mantine/core/styles.css";
+import "@mantine/notifications/styles.css";
 import { hydrateRoot } from 'react-dom/client'
 import type { PageContextClient } from './types'
 import { ReactRoot } from './render'
+import createCache from '@emotion/cache';
+import { CacheProvider } from '@emotion/react';
+
+const cache = createCache({ key: 'mantine' });
+
+export { render }
 
 // This render() hook only supports SSR, see https://vite-plugin-ssr.com/render-modes for how to modify render() to support SPA
 async function render(pageContext: PageContextClient) {
@@ -15,7 +19,9 @@ async function render(pageContext: PageContextClient) {
   if (!root) throw new Error('DOM element #react-root not found')
   hydrateRoot(
     root,
-    <ReactRoot Page={Page} props={pageProps} />
+    <CacheProvider value={cache}>
+      <ReactRoot Page={Page} props={pageProps} />
+    </CacheProvider>
   )
 }
 
