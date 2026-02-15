@@ -9,7 +9,7 @@ const supportedLngs = {
   ja: "日本語"
 }
 
-i18n.use(initReactI18next).use(LanguageDetector).init({
+i18n.use(initReactI18next).init({
   fallbackLng: "en",
   supportedLngs: Object.keys(supportedLngs),
   debug: process.env.NODE_ENV === "development",

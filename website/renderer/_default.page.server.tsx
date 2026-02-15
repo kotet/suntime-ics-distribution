@@ -39,14 +39,13 @@ export async function render(pageContext: PageContextServer) {
 
   // Extract Mantine inline styles from pageHtml to move them to the head
   const mantineStyles = pageHtml.match(/<style data-mantine-styles="[^"]*">[\s\S]*?<\/style>/g)?.join('') || '';
-  const cleanPageHtml = pageHtml.replace(/<style data-mantine-styles="[^"]*">[\s\S]*?<\/style>/g, '');
 
   const template = fs.readFileSync('template.html', 'utf-8');
   const replacedHtml = template.replace('%TITLE%', escapeHTML(`${title} - KotetJP`))
     .replace('%DESCRIPTION%', escapeHTML(desc))
     .replace('%HTML_ATTRIBUTES%', 'data-mantine-color-scheme="dark"')
-    .replace('%CUSTOMHEAD%', ReactDOMServer.renderToString(<ColorSchemeScript />) + emotionStyles + mantineStyles)
-    .replace('%REACTROOT%', cleanPageHtml);
+    .replace('%CUSTOMHEAD%', ReactDOMServer.renderToString(<ColorSchemeScript defaultColorScheme='dark' />) + emotionStyles + mantineStyles)
+    .replace('%REACTROOT%', pageHtml);
   const wrappedHtml = escapeInject`${dangerouslySkipEscape(replacedHtml)}`;
 
   return {

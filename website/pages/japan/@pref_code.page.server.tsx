@@ -18,8 +18,6 @@ export async function onBeforeRender(pageContext: PageContextServer) {
   const code = pageContext.routeParams.pref_code.toLowerCase();
   const entry = entries.find(entry => entry.prefcode.toLowerCase() === code);
 
-  const t = i18n.t;
-
   if (!entry) {
     throw new Error(`not found: ${code}`);
   }

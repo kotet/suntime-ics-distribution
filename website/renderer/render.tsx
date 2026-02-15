@@ -1,28 +1,53 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "@mantine/core/styles.css";
 import "@mantine/notifications/styles.css";
 import { Notifications } from "@mantine/notifications";
-import type { PageProps } from "./types";
+import LanguageDetector from "i18next-browser-languagedetector";
 import { MantineProvider } from "@mantine/core";
 import { Global } from '@emotion/react';
+import type { PageProps } from "./types";
 import { PageShell } from "../components/page_shell";
 import { LocalStoragePrefix } from "../pages/constants";
-import { useLocalStorageSSG } from "./useLocalStorageSSG";
 
 import '../utils/i18n';
 import { I18nextProvider } from "react-i18next";
 import i18n from "../utils/i18n";
+import { useLocalStorage } from "@mantine/hooks";
 
 export const ReactRoot: React.FC<{ Page: React.ComponentType<unknown & PageProps>, props: PageProps }> = ({ Page, props }) => {
-  const [darkMode, setDarkMode] = useLocalStorageSSG({
+  // dark mode。初期値がライトモードだとまぶしいのでhydrate前はdarkにしておく
+  const [localStorageDarkMode, setLocalStorageDarkMode] = useLocalStorage<boolean | null>({
     key: `${LocalStoragePrefix}darkMode`,
-    defaultValue: false,
-    defaultValueSSG: true,
+    defaultValue: null,
   });
+
+  const [realDarkMode, setRealDarkMode] = useState(true);
+
+  useEffect(() => {
+    if (localStorageDarkMode !== null) {
+      setRealDarkMode(localStorageDarkMode);
+    } else {
+      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      setRealDarkMode(mediaQuery.matches);
+      setLocalStorageDarkMode(mediaQuery.matches);
+    }
+  }, [localStorageDarkMode]);
+
+  // language
+  useEffect(() => {
+    const detector = new LanguageDetector();
+    const lang = detector.detect();
+    if (typeof lang === 'string') {
+      i18n.changeLanguage(lang);
+    } else if (Array.isArray(lang) && lang.length > 0) {
+      i18n.changeLanguage(lang[0]);
+    }
+  }, []);
+
   return <>
     <React.StrictMode>
       <I18nextProvider i18n={i18n}>
-        <MantineProvider forceColorScheme={darkMode ? 'dark' : 'light'}>
+        <MantineProvider defaultColorScheme="dark" forceColorScheme={realDarkMode ? 'dark' : 'light'}>
           <Global styles={{
             '.adsbygoogle': {
               maxWidth: 600,
@@ -31,7 +56,7 @@ export const ReactRoot: React.FC<{ Page: React.ComponentType<unknown & PageProps
             }
           }} />
           <Notifications />
-          <PageShell darkMode={darkMode} setDarkMode={setDarkMode} pageProps={props}>
+          <PageShell darkMode={realDarkMode} setDarkMode={setLocalStorageDarkMode} pageProps={props}>
             {
               <Page {...props} />
             }
