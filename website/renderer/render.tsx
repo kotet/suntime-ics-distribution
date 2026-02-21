@@ -12,28 +12,31 @@ import { LocalStoragePrefix } from "../pages/constants";
 import '../utils/i18n';
 import { I18nextProvider } from "react-i18next";
 import i18n from "../utils/i18n";
-import { useLocalStorage } from "@mantine/hooks";
 
 export const ReactRoot: React.FC<{ Page: React.ComponentType<unknown & PageProps>, props: PageProps }> = ({ Page, props }) => {
   // dark mode。初期値がライトモードだとまぶしいのでhydrate前はdarkにしておく
-  const [localStorageDarkMode, setLocalStorageDarkMode] = useLocalStorage<boolean | null>({
-    key: `${LocalStoragePrefix}darkMode`,
-    defaultValue: null,
-  });
-  const [realDarkMode, setRealDarkMode] = useState(true);
-  // 初来訪時
+  const [darkMode, setDarkMode] = useState<boolean | null>(null);
   useEffect(() => {
-    if (localStorageDarkMode === null) {
+    if (darkMode !== null) {
+      return;
+    }
+    // localStorageからダークモードの設定を読み込む
+    const storedDarkMode = localStorage.getItem(`${LocalStoragePrefix}darkMode`);
+    if (storedDarkMode !== null) {
+      setDarkMode(storedDarkMode === 'true');
+    } else {
+      // 初来訪時
       const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-      setRealDarkMode(prefersDark);
+      setDarkMode(prefersDark);
     }
   }, []);
-  // 設定ボタンを押したとき&hydrate後の初回レンダリング
   useEffect(() => {
-    if (localStorageDarkMode !== null) {
-      setRealDarkMode(localStorageDarkMode);
+    if (darkMode !== null) {
+      localStorage.setItem(`${LocalStoragePrefix}darkMode`, darkMode.toString());
     }
-  },[localStorageDarkMode]);
+  }, [darkMode]);
+
+  const realDarkMode = darkMode ?? true;
 
   // language
   useEffect(() => {
@@ -58,7 +61,7 @@ export const ReactRoot: React.FC<{ Page: React.ComponentType<unknown & PageProps
             }
           }} />
           <Notifications />
-          <PageShell darkMode={realDarkMode} setDarkMode={setLocalStorageDarkMode} pageProps={props}>
+          <PageShell darkMode={realDarkMode} setDarkMode={setDarkMode} pageProps={props}>
             {
               <Page {...props} />
             }
