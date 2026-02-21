@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { IsSSG } from '../pages/constants';
+import { IsSSG, LocalStoragePrefix } from '../pages/constants';
 import { Autocomplete, Group, Skeleton } from '@mantine/core';
 import { useTranslation } from 'react-i18next';
+import { useLocalStorage } from '@mantine/hooks';
 
 export type PageListEntry = {
   short_name: string;
@@ -9,6 +10,7 @@ export type PageListEntry = {
   href: string;
 };
 export type PageListProps = {
+  id: string;
   entries: PageListEntry[];
 }
 enum Mode {
@@ -21,8 +23,31 @@ type AutocompleteData = {
   href: string;
 };
 export const PageList: React.FC<PageListProps> = (props: PageListProps) => {
-  const [mode, setMode] = React.useState<Mode>(Mode.List);
+  const [mode, setMode] = React.useState<Mode| null>(null);
   const [value, setValue] = React.useState('');
+
+  const localStorageKey = `${LocalStoragePrefix}-pageListMode-${props.id}`;
+
+  useEffect(() => {
+    if (IsSSG) {
+      return;
+    }
+    if (mode !== null) {
+      localStorage.setItem(localStorageKey, mode.toString());
+      return;
+    }
+    const localStorageMode = localStorage.getItem(localStorageKey);
+    if (localStorageMode === null) {
+      const windowWidth = window.innerWidth;
+      if (windowWidth < 600) {
+        setMode(Mode.List);
+      } else {
+        setMode(Mode.Grid);
+      }
+    } else if (localStorageMode !== null) {
+      setMode(localStorageMode === Mode.List.toString() ? Mode.List : Mode.Grid);
+    }
+  }, [mode, props.id, localStorageKey]);
 
   const { t } = useTranslation();
 
@@ -34,8 +59,6 @@ export const PageList: React.FC<PageListProps> = (props: PageListProps) => {
       const windowWidth = window.innerWidth;
       if (windowWidth < 600) {
         setMode(Mode.List);
-      } else {
-        setMode(Mode.Grid);
       }
     };
     onResize();
@@ -55,7 +78,7 @@ export const PageList: React.FC<PageListProps> = (props: PageListProps) => {
 
   return <div>
     <Group style={{ maxWidth: 600 }}>
-      <SwitchButtom mode={mode} setMode={setMode} />
+      <SwitchButtom mode={mode ?? Mode.List} setMode={setMode} />
       <Autocomplete
         value={value}
         onChange={setValue}
@@ -73,7 +96,7 @@ export const PageList: React.FC<PageListProps> = (props: PageListProps) => {
     </Group>
     {
       (() => {
-        switch (mode) {
+        switch (mode ?? Mode.List) {
           case Mode.List:
             return <List {...props} />;
           case Mode.Grid:
