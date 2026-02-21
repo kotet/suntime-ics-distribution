@@ -1,4 +1,4 @@
-import { Container, Group, Title, ActionIcon, Breadcrumbs, Divider, Text, Stack, Select } from "@mantine/core";
+import { Container, Group, Title, ActionIcon, Breadcrumbs, Divider, Text, Stack } from "@mantine/core";
 import React from "react";
 import { IconBrandGithub, IconHome, IconMoon, IconSun } from "@tabler/icons-react";
 import { BreadcrumbsEntry, PageProps } from "../renderer/types";
@@ -54,10 +54,10 @@ type BreadcrumbsProps = {
   entries?: BreadcrumbsEntry[];
 };
 const BreadcrumbsFromProps: React.FC<BreadcrumbsProps> = ({ entries }: BreadcrumbsProps) => {
+  const { t } = useTranslation();
   if (!entries) {
     return <></>;
   }
-  const { t } = useTranslation();
   return <Breadcrumbs style={{
     fontSize: '0.8rem',
   }} separator={'>'} p='xs'>{entries.map(((e, i) => {

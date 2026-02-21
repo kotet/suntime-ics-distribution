@@ -29,7 +29,7 @@ export const ReactRoot: React.FC<{ Page: React.ComponentType<unknown & PageProps
       const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
       setDarkMode(prefersDark);
     }
-  }, []);
+  }, [darkMode]);
   useEffect(() => {
     if (darkMode !== null) {
       localStorage.setItem(`${LocalStoragePrefix}darkMode`, darkMode.toString());

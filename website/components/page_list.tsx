@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { IsSSG, LocalStoragePrefix } from '../pages/constants';
 import { Autocomplete, Group, Skeleton } from '@mantine/core';
 import { useTranslation } from 'react-i18next';
-import { useLocalStorage } from '@mantine/hooks';
 
 export type PageListEntry = {
   short_name: string;

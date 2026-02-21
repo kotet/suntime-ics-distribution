@@ -23,6 +23,7 @@ lint: scripts/generate_world.json.py scripts/generate_japan.json.py ${POETRYDEPS
 	${INITPYTHON_SCRIPTS} \
 	&& ruff check $$(ls scripts/*.py) \
 	&& mypy $$(ls scripts/*.py)
+	cd website && yarn && yarn lint && yarn tsc
 
 website/public/data/ics/: $(ALL_ICS)
 	mkdir -p ${@D}
