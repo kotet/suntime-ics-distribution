@@ -31,9 +31,9 @@ function Page(props: IndexPageProps) {
   return (
     <>
       <h2>{t('world')}</h2>
-      <PageList entries={worldPageListEntries} />
+      <PageList id="world" entries={worldPageListEntries} />
       <h2>{t('japan')}</h2>
-      <PageList entries={japanPageListEntries} />
+      <PageList id="japan" entries={japanPageListEntries} />
     </>
   )
 }

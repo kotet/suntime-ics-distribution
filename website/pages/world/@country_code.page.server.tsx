@@ -1,4 +1,3 @@
-import { useTranslation } from "react-i18next";
 import { PageContextServer } from "../../renderer/types";
 import { BasePath, getBaseURL } from "../constants";
 import { WorldJSONPath } from "../constants.server";
@@ -18,7 +17,6 @@ export async function onBeforeRender(pageContext: PageContextServer) {
   const entries = JSON.parse(worldJson) as WorldJSONEntry[];
   const code = pageContext.routeParams.country_code.toLowerCase();
   const entry = entries.find(prop => prop.country_code.toLowerCase() === code);
-  const t = i18n.t;
   if (!entry) {
     throw new Error(`not found: ${code}`);
   }

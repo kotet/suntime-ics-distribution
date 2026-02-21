@@ -3,7 +3,6 @@ import { JapanJSONPath } from "../constants.server";
 import { JapanJSONEntry, JapanPageProps } from "./types";
 import { PageContextServer } from "../../renderer/types";
 import { BasePath, getBaseURL } from "../constants";
-import i18n from "../../utils/i18n";
 
 export async function prerender(): Promise<string[]> {
   const japanJson = fs.readFileSync(JapanJSONPath, "utf-8");
