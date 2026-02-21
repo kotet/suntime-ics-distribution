@@ -20,18 +20,20 @@ export const ReactRoot: React.FC<{ Page: React.ComponentType<unknown & PageProps
     key: `${LocalStoragePrefix}darkMode`,
     defaultValue: null,
   });
-
   const [realDarkMode, setRealDarkMode] = useState(true);
-
+  // 初来訪時
+  useEffect(() => {
+    if (localStorageDarkMode === null) {
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      setRealDarkMode(prefersDark);
+    }
+  }, []);
+  // 設定ボタンを押したとき&hydrate後の初回レンダリング
   useEffect(() => {
     if (localStorageDarkMode !== null) {
       setRealDarkMode(localStorageDarkMode);
-    } else {
-      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-      setRealDarkMode(mediaQuery.matches);
-      setLocalStorageDarkMode(mediaQuery.matches);
     }
-  }, [localStorageDarkMode]);
+  },[localStorageDarkMode]);
 
   // language
   useEffect(() => {
