@@ -10,6 +10,8 @@ type PageShellProps = {
   children: React.ReactNode;
   darkMode: boolean;
   setDarkMode: (darkMode: boolean) => void;
+  language: string;
+  setLanguage: (language: string | null) => void;
   pageProps: PageProps;
 };
 export const PageShell: React.FC<PageShellProps> = (props: PageShellProps) => {
@@ -25,10 +27,10 @@ export const PageShell: React.FC<PageShellProps> = (props: PageShellProps) => {
         <Group>
           <ActionIcon.Group>
             <ActionIcon
-              title={t('switch_language_ja_tooltip')} variant={i18n.language === 'ja' ? 'filled' : 'default'} onClick={() => { i18n.changeLanguage('ja'); }}
+              title={t('switch_language_ja_tooltip')} variant={props.language === 'ja' ? 'filled' : 'default'} onClick={() => { props.setLanguage('ja'); }}
             >🇯🇵</ActionIcon>
             <ActionIcon
-              title={t('switch_language_en_tooltip')} variant={i18n.language === 'en' ? 'filled' : 'default'} onClick={() => { i18n.changeLanguage('en'); }}
+              title={t('switch_language_en_tooltip')} variant={props.language === 'en' ? 'filled' : 'default'} onClick={() => { props.setLanguage('en'); }}
             >🇺🇸</ActionIcon>
           </ActionIcon.Group>
           <Divider orientation="vertical" />
