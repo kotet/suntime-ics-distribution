@@ -25,6 +25,9 @@ lint: scripts/generate_world.json.py scripts/generate_japan.json.py ${POETRYDEPS
 	&& mypy $$(ls scripts/*.py)
 	cd website && yarn && yarn lint && yarn tsc
 
+format:
+	cd website && yarn && yarn format
+
 website/public/data/ics/: $(ALL_ICS)
 	mkdir -p ${@D}
 	cp -R data/ics/* $@/

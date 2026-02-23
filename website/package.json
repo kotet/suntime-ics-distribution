@@ -2,7 +2,8 @@
   "scripts": {
     "build": "tsc && vite build && tsx generate_sitemap.ts",
     "serve": "vite",
-    "lint": "eslint . --max-warnings 0"
+    "lint": "eslint . --max-warnings 0",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -54,6 +55,7 @@
     "@eslint/js": "^10.0.1",
     "@types/escape-html": "^1.0.4",
     "@types/ical": "^0.8.3",
+    "prettier": "^3.8.1",
     "typescript-eslint": "^8.55.0"
   }
 }

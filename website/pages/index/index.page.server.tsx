@@ -7,15 +7,15 @@ import i18n from "../../utils/i18n";
 export function getDocumentProps() {
   const t = i18n.t;
   return {
-    title: t('site_title_full'),
-    description: t('site_description'),
-  }
+    title: t("site_title_full"),
+    description: t("site_description"),
+  };
 }
 
 export async function prerender() {
   return {
-    url: `/`
-  }
+    url: `/`,
+  };
 }
 
 export async function onBeforeRender() {
@@ -29,6 +29,6 @@ export async function onBeforeRender() {
         world: worldEntries,
         japan: japanEntries,
       },
-    }
-  }
+    },
+  };
 }

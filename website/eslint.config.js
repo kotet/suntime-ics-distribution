@@ -50,5 +50,5 @@ export default tseslint.config(
     rules: {
       "react-refresh/only-export-components": "warn",
     },
-  }
+  },
 );

@@ -1,4 +1,3 @@
-
 import type {
   PageContextBuiltInServer,
   /*
@@ -6,35 +5,40 @@ import type {
   PageContextBuiltInClientWithClientRouting as PageContextBuiltInClient
   /*/
   // When using Server Routing
-  PageContextBuiltInClientWithServerRouting as PageContextBuiltInClient
+  PageContextBuiltInClientWithServerRouting as PageContextBuiltInClient,
   //*/
-} from 'vite-plugin-ssr/types'
+} from "vite-plugin-ssr/types";
 
-type Page = (pageProps: unknown) => React.ReactElement
+type Page = (pageProps: unknown) => React.ReactElement;
 export type PageProps = Record<string, unknown> & {
-  breadcrumbs?: BreadcrumbsEntry[]
-}
+  breadcrumbs?: BreadcrumbsEntry[];
+};
 
 export type PageContextCustom = {
-  Page: Page
-  pageProps?: PageProps
-  urlPathname: string
+  Page: Page;
+  pageProps?: PageProps;
+  urlPathname: string;
   exports: {
     documentProps?: {
-      title?: string
-      description?: string
-    }
-    getDocumentProps?: (pageProps: PageProps) => {title?: string, description?: string}
-  }
-}
+      title?: string;
+      description?: string;
+    };
+    getDocumentProps?: (pageProps: PageProps) => {
+      title?: string;
+      description?: string;
+    };
+  };
+};
 
-export type PageContextServer = PageContextBuiltInServer<Page> & PageContextCustom
-export type PageContextClient = PageContextBuiltInClient<Page> & PageContextCustom
+export type PageContextServer = PageContextBuiltInServer<Page> &
+  PageContextCustom;
+export type PageContextClient = PageContextBuiltInClient<Page> &
+  PageContextCustom;
 
-export type PageContext = PageContextClient | PageContextServer
+export type PageContext = PageContextClient | PageContextServer;
 
 export type BreadcrumbsEntry = {
-  i18n_key: string
-  values?: Record<string, string | number>
-  href?: string
+  i18n_key: string;
+  values?: Record<string, string | number>;
+  href?: string;
 };

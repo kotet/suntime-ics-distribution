@@ -1,7 +1,7 @@
 import { PageProps } from "../../renderer/types";
 
 export type JapanPageProps = {
-  entry: JapanJSONEntry,
+  entry: JapanJSONEntry;
 } & PageProps;
 
 export type JapanJSONEntry = {
