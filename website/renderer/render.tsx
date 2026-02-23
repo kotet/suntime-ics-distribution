@@ -92,7 +92,7 @@ export const ReactRoot: React.FC<{
             <PageShell
               darkMode={realDarkMode}
               setDarkMode={setDarkMode}
-              language={language}
+              language={language ?? i18n.language}
               setLanguage={setLanguage}
               pageProps={props}
             >
