@@ -1,9 +1,9 @@
-import react from '@vitejs/plugin-react'
-import ssr from 'vite-plugin-ssr/plugin'
-import { defineConfig } from 'vite'
+import react from "@vitejs/plugin-react";
+import ssr from "vite-plugin-ssr/plugin";
+import { defineConfig } from "vite";
 
 export default defineConfig((c) => ({
-  base: c.mode === 'development' ? '/' : '/suntime-ics-distribution/',
+  base: c.mode === "development" ? "/" : "/suntime-ics-distribution/",
   plugins: [
     react(),
     ssr({
@@ -11,7 +11,7 @@ export default defineConfig((c) => ({
     }),
   ],
   server: {
-    host: '0.0.0.0',
+    host: "0.0.0.0",
     port: 3000,
   },
-}))
+}));

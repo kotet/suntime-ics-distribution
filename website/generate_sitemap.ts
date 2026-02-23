@@ -1,8 +1,8 @@
-import { generateSitemap } from 'sitemap-ts'
+import { generateSitemap } from "sitemap-ts";
 
 generateSitemap({
-  hostname: 'https://kotet.jp',
-  basePath: '/suntime-ics-distribution',
-  outDir: 'dist/client',
+  hostname: "https://kotet.jp",
+  basePath: "/suntime-ics-distribution",
+  outDir: "dist/client",
   generateRobotsTxt: false,
 });

@@ -5,8 +5,8 @@ import jaTranslation from "../locales/ja/translation.json";
 
 const supportedLngs = {
   en: "English",
-  ja: "日本語"
-}
+  ja: "日本語",
+};
 
 i18n.use(initReactI18next).init({
   fallbackLng: "en",

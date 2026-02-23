@@ -1,7 +1,7 @@
 import { PageProps } from "../../renderer/types";
 
 export type WorldPageProps = {
-  entry: WorldJSONEntry,
+  entry: WorldJSONEntry;
 } & PageProps;
 
 export type WorldJSONEntry = {
